@@ -5,6 +5,6 @@ __pycache__
 titanic.csv
 iris.csv
 Untitiled.ipynb
-
+*.csv
 
 
