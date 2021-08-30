@@ -50,7 +50,7 @@ def get_titanic_data(cached=False):
     if cached == False or os.path.isfile('titanic_df.csv') == False:
         
         # Read fresh data from db into a DataFrame.
-        df = new_titanic_data()
+        df = get_new_titanic_data()
         
         # Write DataFrame to a csv file.
         df.to_csv('titanic_df.csv')
