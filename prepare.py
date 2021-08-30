@@ -7,7 +7,7 @@ from sklearn.impute import SimpleImputer
 
 ###################### Prep Iris Data ######################
 
-def prep_iris(df):
+def prep_iris(iris_df):
     '''
     This function takes in the iris df acquired by get_iris_data
     Returns the iris df with dummy variables encoding species.
@@ -22,6 +22,10 @@ def prep_iris(df):
     df = pd.concat([df, species_dummies], axis=1)
     
     return df
+
+
+
+
 
 ###################### Prep Titanic Data ######################
 
@@ -87,4 +91,25 @@ def prep_titanic(df):
     # impute mean of age into null values in age column
     train, validate, test = impute_mean_age(train, validate, test)
     
+    return train, validate, test
+
+
+
+### Train, Validate, Test
+
+def train_validate_test_split(df, target, seed=123):
+    '''
+    This function takes in a dataframe, the name of the target variable
+    (for stratification purposes), and an integer for a setting a seed
+    and splits the data into train, validate and test. 
+    Test is 20% of the original dataset, validate is .30*.80= 24% of the 
+    original dataset, and train is .70*.80= 56% of the original dataset. 
+    The function returns, in this order, train, validate and test dataframes. 
+    '''
+    train_validate, test = train_test_split(df, test_size=0.2, 
+                                            random_state=seed, 
+                                            stratify=df[target])
+    train, validate = train_test_split(train_validate, test_size=0.3, 
+                                       random_state=seed,
+                                       stratify=train_validate[target])
     return train, validate, test
